@@ -25,7 +25,7 @@ def add_to_watchlist(user_id, film_id, public=True):
 
     Args:
         user_id (str): UUID of the user.
-        film_id (int): ID of the film. (Note: integer — pre-refactor)
+        film_id (str): UUID of the film.
         public (bool, optional): Visibility of this entry. Defaults to True.
             See pr-response.md Comment 4 for the reasoning behind this default.
 
@@ -60,7 +60,7 @@ def remove_from_watchlist(user_id, film_id):
 
     Args:
         user_id (str): UUID of the user.
-        film_id (int): ID of the film.
+        film_id (str): UUID of the film.
 
     Raises:
         NotInWatchlistError: If the film is not currently on the user's watchlist.
