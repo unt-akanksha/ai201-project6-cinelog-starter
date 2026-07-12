@@ -27,7 +27,7 @@ def add_film(user_id):
     """
     POST /watchlist/<user_id>/add
 
-    Body: { "film_id": <int> }
+    Body: { "film_id": <int>, "public": <bool, optional> }
     """
     data = request.get_json()
     if not data or "film_id" not in data:
@@ -38,3 +38,18 @@ def add_film(user_id):
         user_id=user_id, film_id=data["film_id"], public=public
     )
     return jsonify(entry.to_dict()), 201
+
+
+@watchlist_bp.route("/<user_id>/remove", methods=["POST"])
+def remove_film(user_id):
+    """
+    POST /watchlist/<user_id>/remove
+
+    Body: { "film_id": <int> }
+    """
+    data = request.get_json()
+    if not data or "film_id" not in data:
+        return jsonify({"error": "film_id is required"}), 400
+
+    remove_from_watchlist(user_id=user_id, film_id=data["film_id"])
+    return jsonify({"status": "removed"}), 200
